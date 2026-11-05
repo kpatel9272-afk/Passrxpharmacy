@@ -1,0 +1,5 @@
+[[redirects]]
+  from = "https://www.passrx.org/*"
+  to = "https://passrx.org/:splat"
+  status = 301
+  force = true
