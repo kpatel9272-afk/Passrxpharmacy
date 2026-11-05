@@ -316,34 +316,13 @@ footer{background:var(--n);color:rgba(255,255,255,.45);padding:2rem 5%;display:f
   </div>
 </section>
 
-<!-- INDIVIDUAL TOPIC SELECTOR -->
-<section class="section">
-  <div style="max-width:600px;margin:0 auto;text-align:center;">
-    <div class="slbl">Individual Topics</div>
-    <div class="stitle">Select Your Topics</div>
-    <div class="ssub" style="margin:0 auto 2rem;">Pick the topics you need. &pound;5 each &mdash; or get all 15 for &pound;45 in the Complete Bundle.</div>
-    <div class="pcard" style="max-width:100%;text-align:left;">
-      <div class="pcard-hd"><div class="pcard-tag">Individual Topics</div><h3>Choose Your Topics</h3><p>Select from the list below. Price updates as you add topics.</p></div>
-      <div class="pcard-body">
-        <div class="delivery"><strong>Delivery:</strong> Instant download &mdash; your PDF will be available immediately after payment.</div>
-        <div class="dw">
-          <div class="dt" id="ddt" onclick="togDD()"><span class="dl" id="ddl">Select topics&hellip;</span><span class="dc">&#9660;</span></div>
-          <div class="dp" id="ddp"></div>
-        </div>
-        <div class="os-box" id="osb"><div class="os-hd">Your order</div><div id="orows"></div><div class="ot"><span>Total</span><span id="otot">&pound;0</span></div><div class="bn" id="bnn">&#127881; 6+ topics &mdash; bundle price &pound;45</div></div>
-        <button class="co" id="cob" onclick="checkout()" disabled>Select topics to continue</button>
-      </div>
-    </div>
-  </div>
-</section>
-
 <section class="faq">
   <div style="text-align:center;margin-bottom:2rem;"><div class="slbl">FAQ</div><div class="stitle">Common Questions</div></div>
   <div class="faq-list">
     <div class="fi"><div class="fq" onclick="faq(this)">How do I receive my notes? <span class="fic">+</span></div><div class="fa">Your PDF is available for instant download immediately after payment &mdash; no waiting, no emails needed.</div></div>
     <div class="fi"><div class="fq" onclick="faq(this)">Are notes aligned to GPhC 2026 and 2027? <span class="fic">+</span></div><div class="fa">Yes &mdash; all 15 topics are cross-referenced against the GPhC 2026 and 2027 blueprints, NICE guidelines, and the BNF.</div></div>
     <div class="fi"><div class="fq" onclick="faq(this)">Who wrote the notes? <span class="fic">+</span></div><div class="fa">Kamini Chauhan, a qualified community pharmacist with 11 years of clinical experience.</div></div>
-    <div class="fi"><div class="fq" onclick="faq(this)">Can I buy individual topics? <span class="fic">+</span></div><div class="fa">Yes &mdash; each topic is &pound;5. Selecting 6 or more automatically upgrades to the full bundle at &pound;45.</div></div>
+    <div class="fi"><div class="fq" onclick="faq(this)">Can I buy individual topics? <span class="fic">+</span></div><div class="fa">Yes &mdash; each topic is &pound;5 on the Clinical Topics page. The Complete Bundle at &pound;45 includes all 15 topics, the full mock exam and the OSCE guide.</div></div>
     <div class="fi"><div class="fq" onclick="faq(this)">Can I get a refund? <span class="fic">+</span></div><div class="fa">As these are digital products, refunds cannot be offered once PDFs have been delivered. Contact primenotesedu@gmail.com with any concerns.</div></div>
   </div>
 </section>
@@ -884,12 +863,6 @@ var cart={};
 function go(id){document.querySelectorAll(".page").forEach(function(p){p.classList.remove("active");});document.getElementById(id).classList.add("active");window.scrollTo(0,0);if(id==="topics")buildGrid();}
 var gb=false;
 function buildGrid(){if(gb)return;gb=true;var g=document.getElementById("tgrid");g.innerHTML="";TT.forEach(function(t){var d=document.createElement("div");d.className="tc";d.innerHTML='<div class="tc-img" style="background:'+t.g+'"><svg viewBox="0 0 80 80" fill="none">'+t.v+'</svg></div><div class="tc-info"><span class="tc-n">Topic '+t.i+'</span><span class="tc-t">'+t.n+'</span><span class="tc-s">'+t.s+'</span><span class="tc-p">&pound;5</span></div>';d.onclick=function(){window.open(ST[parseInt(t.i)],"_blank");};g.appendChild(d);});}
-function buildDD(){var p=document.getElementById("ddp");p.innerHTML="";TT.forEach(function(t){var d=document.createElement("div");d.className="do";d.id="dd"+t.i;d.innerHTML='<div class="ocb"><span class="otk">&#10003;</span></div><div><span class="on">'+t.i+". "+t.n+'</span><span class="os">'+t.s+'</span></div>';d.onclick=function(){tog(t.i,t.n);};p.appendChild(d);});}
-function togDD(){document.getElementById("ddt").classList.toggle("open");document.getElementById("ddp").classList.toggle("open");}
-document.addEventListener("click",function(e){var w=document.querySelector(".dw");if(w&&!w.contains(e.target)){document.getElementById("ddt").classList.remove("open");document.getElementById("ddp").classList.remove("open");}});
-function tog(id,name){var el=document.getElementById("dd"+id);if(cart[id]){delete cart[id];el.classList.remove("ck");}else{cart[id]=name;el.classList.add("ck");}upd();}
-function rem(id){delete cart[id];var el=document.getElementById("dd"+id);if(el)el.classList.remove("ck");upd();}
-function upd(){var ids=Object.keys(cart).sort();var n=ids.length;var ib=n>=6;var tot=ib?45:n*5;var lbl=document.getElementById("ddl");lbl.textContent=n===0?"Select topics...":n+" topic"+(n>1?"s":"")+" selected";lbl.className="dl"+(n>0?" s":"");var box=document.getElementById("osb");var rows=document.getElementById("orows");var totEl=document.getElementById("otot");var note=document.getElementById("bnn");if(n>0){box.className="os-box v";var html="";ids.forEach(function(id){html+='<div class="or"><span class="orn">Topic '+id+' - '+cart[id]+'</span><span class="orp">'+(ib?"-":"&pound;5")+'</span><span class="orx" data-id="'+id+'">&times;</span></div>';});rows.innerHTML=html;rows.querySelectorAll(".orx").forEach(function(x){x.onclick=function(){rem(x.getAttribute("data-id"));};});totEl.textContent="&pound;"+tot;note.style.display=ib?"block":"none";}else{box.className="os-box";note.style.display="none";}var btn=document.getElementById("cob");if(n===0){btn.disabled=true;btn.textContent="Select topics to continue";}else{btn.disabled=false;btn.textContent="Buy Now — &pound;"+tot;}}
 function checkout(){var ids=Object.keys(cart).sort();var n=ids.length;if(n===0)return;if(n>=6){window.open(ST.b,"_blank");}else if(n===1){window.open(ST[parseInt(ids[0])],"_blank");}else{window.open(ST.b,"_blank");}}
 function faq(el){var fi=el.parentElement;fi.classList.toggle("open");}
 var QQ=[
@@ -911,7 +884,7 @@ function qzSub(qi){if(QA[qi]||QSL[qi]===undefined)return;QA[qi]=true;var c=QQ[qi
 function qzNx(qi){document.getElementById("qzc"+qi).classList.remove("qza");if(qi<9){document.getElementById("qzc"+(qi+1)).classList.add("qza");QC=qi+1;}else{qzIncrCount();var r=document.getElementById("qzres");r.style.display="block";var p=QS/10*100,e,tl,sb;if(p>=80){e="&#127881;";tl="Excellent work!";sb="You clearly know your GPhC topics!";}else if(p>=60){e="&#128170;";tl="Good effort!";sb="Solid foundation — keep revising!";}else if(p>=40){e="&#128218;";tl="Keep going!";sb="Some gaps to fill — check the explanations.";}else{e="&#128260;";tl="More revision needed";sb="Review the explanations and try again.";}document.getElementById("qzrem").innerHTML=e;document.getElementById("qzrtl").textContent=tl;document.getElementById("qzrsc").textContent=QS+"/10";document.getElementById("qzrsb").textContent=sb;}qzProg();document.getElementById("quiz-section").scrollIntoView({behavior:"smooth",block:"start"});}
 function qzProg(){var done=Object.keys(QA).length;document.getElementById("qz-label").textContent="Question "+(QC+1)+" of 10";document.getElementById("qz-score").textContent="Score: "+QS;document.getElementById("qz-fill").style.width=(done/10*100)+"%";}
 function qzRty(){QC=0;QS=0;QSL={};QA={};document.getElementById("qzres").style.display="none";qzInit();}
-document.addEventListener("DOMContentLoaded",function(){buildDD();qzInit();qzLoadCount();});
+document.addEventListener("DOMContentLoaded",function(){qzInit();qzLoadCount();});
 function qzLoadCount(){fetch("https://api.countapi.xyz/get/passrx/quiz-attempts").then(function(r){return r.json();}).then(function(d){var el=document.getElementById("qz-attempts");if(el&&d.value>0){el.textContent=d.value+" pre-regs have attempted this quiz";}}).catch(function(){});}
 function qzIncrCount(){fetch("https://api.countapi.xyz/hit/passrx/quiz-attempts").catch(function(){});}
 </script>
